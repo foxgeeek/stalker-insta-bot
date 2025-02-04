@@ -31,12 +31,13 @@ async function loginToInstagram() {
       page.click('button[type="submit"]'),
       page.waitForNavigation({ waitUntil: 'networkidle2' })
     ]);
-  
+
+    await page.screenshot({ path: 'debug.png', fullPage: true });
+
     console.log('\n✅ Login realizado com sucesso!');
     console.log('\n==============================');
-    await page.screenshot({ path: 'debug.png', fullPage: true });
     isLoggedIn = true;
-    page.on('console', msg => console.log('PAGE LOG:', msg.text()));
+    // page.on('console', msg => console.log('PAGE LOG:', msg.text()));
   } catch (err) {
     page.on('console', msg => console.log('PAGE LOG:', msg.text()));
     console.log('\n❌ Erro ao realizar login no Instagram. ', err);

@@ -67,3 +67,8 @@ jobs:
         INSTAGRAM_TARGET_LIST: ${{ secrets.INSTAGRAM_TARGET_LIST }}
         NUM_INSTANCES: ${{ secrets.NUM_INSTANCES }}
 
+    - name: Upload do screenshot
+      uses: actions/upload-artifact@v3
+      with:
+        name: screenshot
+        path: debug.png
