@@ -12,7 +12,7 @@ async function loginToInstagram() {
     if (isLoggedIn) return;
   
     console.log('\n🔎 Verificando login no Instagram...');
-    await page.goto('https://www.instagram.com/accounts/login/', { waitUntil: 'networkidle2' });
+    await page.goto('https://www.instagram.com/accounts/login/', { waitUntil: 'networkidle0' });
   
     const alreadyLoggedIn = await page.evaluate(() => document.querySelector('input[name="username"]') === null);
   
@@ -29,13 +29,15 @@ async function loginToInstagram() {
   
     await Promise.all([
       page.click('button[type="submit"]'),
-      page.waitForNavigation({ waitUntil: 'networkidle2' })
+      page.waitForNavigation({ waitUntil: 'networkidle0' })
     ]);
   
     console.log('\n✅ Login realizado com sucesso!');
     console.log('\n==============================');
     isLoggedIn = true;
+    page.on('console', msg => console.log('PAGE LOG:', msg.text()));
   } catch (err) {
+    page.on('console', msg => console.log('PAGE LOG:', msg.text()));
     console.log('\n❌ Erro ao realizar login no Instagram. ', err);
   }
 }
@@ -57,7 +59,7 @@ async function checkNewPost() {
     await loginToInstagram();
 
     console.log('\n🔍 Acessando:', INSTAGRAM_URL);
-    await page.goto(INSTAGRAM_URL, { waitUntil: 'networkidle2' });
+    await page.goto(INSTAGRAM_URL, { waitUntil: 'networkidle0' });
   
     await page.waitForSelector(TARGET_CLASS, { timeout: 5000 });
 
