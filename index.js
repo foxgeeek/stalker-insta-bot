@@ -11,8 +11,8 @@ app.use(express.json());
 const PORT = process.env.PORT || 3000;
 const INSTAGRAM_URL = `https://www.instagram.com/${process.env.INSTAGRAM_TARGET}`;
 const CHECK_INTERVAL = 30000;
-const CLASS_TAG_POST = process.env.INSTAGRAM_CLASS_POST;
-const CLASS_TAG_TEXT = process.env.INSTAGRAM_CLASS_TEXT;
+const TARGET_CLASS = process.env.INSTAGRAM_TARGET_CLASS;
+const TARGET_TAG = process.env.INSTAGRAM_TARGET_TAG;
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 // Vars
@@ -89,13 +89,13 @@ async function checkNewPost() {
     console.log('\n🔍 Acessando a URL:', INSTAGRAM_URL);
     await page.goto(INSTAGRAM_URL, { waitUntil: 'networkidle2' });
   
-    await page.waitForSelector(CLASS_TAG_POST, { timeout: 5000 });
+    await page.waitForSelector(TARGET_CLASS, { timeout: 5000 });
 
     let elementSelected = null;
 
-    const post = await page.evaluate(async (selectorPost, selectorText) => {
+    const post = await page.evaluate(async (classSelector, tagSelector) => {
 
-      let elements = Array.from(document.querySelectorAll(selectorPost));
+      let elements = Array.from(document.querySelectorAll(classSelector));
 
       elementSelected = elements.find((element, index) => {
         let svgElement = element.querySelector('svg');
@@ -118,7 +118,7 @@ async function checkNewPost() {
       await new Promise(resolve => setTimeout(resolve, 500));
     
       // Capturar o texto dentro do modal
-      let textElements = document.querySelectorAll('h1');
+      let textElements = document.querySelectorAll(tagSelector);
       let textElement = '';
       textElements.forEach(element => {
         if (element.textContent.length > 10) {
@@ -133,7 +133,7 @@ async function checkNewPost() {
         link: firstPost.href || null,
         text: textContent || null,
       };
-    }, CLASS_TAG_POST, CLASS_TAG_TEXT);
+    }, TARGET_CLASS, TARGET_TAG);
 
     let date = new Date();
     let formattedDate = date.toLocaleDateString('pt-BR') + ' - ' + date.toLocaleTimeString('pt-BR');
