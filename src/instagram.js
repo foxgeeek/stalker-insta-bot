@@ -102,7 +102,7 @@ async function checkNewPost() {
 
     if (post && post.image && post.link && post.link !== lastPost) {
       lastPost = post.link;
-      sendNotification(post);
+      await sendNotification(post);
       console.log('\n✅ Nova postagem detectada:', post);
       console.log('\n==============================');
     } else {
