@@ -32,7 +32,7 @@ npm install
 ```
 
 ### 3️⃣ Configurar Variáveis de Ambiente  
-Crie um arquivo `.env` na raiz do projeto e adicione as seguintes variáveis:  
+Reutilize o arquivo `.env-example`, localizado na raiz do projeto. Para isso, copie o arquivo, cole no mesmo diretório e renomeie para `.env`. Depois, edite as variáveis conforme necessário:
 
 #### 🔧 Exemplo de `.env`
 ```ini
