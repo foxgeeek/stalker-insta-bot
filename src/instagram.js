@@ -6,34 +6,38 @@ let lastPost = null;
 let isLoggedIn = false;
 
 async function loginToInstagram() {
-  const page = await getPage();
-
-  if (isLoggedIn) return;
-
-  console.log('\n🔎 Verificando login no Instagram...');
-  await page.goto('https://www.instagram.com/accounts/login/', { waitUntil: 'networkidle2' });
-
-  const alreadyLoggedIn = await page.evaluate(() => document.querySelector('input[name="username"]') === null);
-
-  if (alreadyLoggedIn) {
-    console.log('\n✅ Já estamos logados no Instagram!');
+  try {
+    const page = await getPage();
+  
+    if (isLoggedIn) return;
+  
+    console.log('\n🔎 Verificando login no Instagram...');
+    await page.goto('https://www.instagram.com/accounts/login/', { waitUntil: 'networkidle2' });
+  
+    const alreadyLoggedIn = await page.evaluate(() => document.querySelector('input[name="username"]') === null);
+  
+    if (alreadyLoggedIn) {
+      console.log('\n✅ Já estamos logados no Instagram!');
+      isLoggedIn = true;
+      return;
+    }
+  
+    console.log('\n🔑 Realizando login no Instagram...');
+    await page.waitForSelector('input[name="username"]', { visible: true });
+    await page.type('input[name="username"]', INSTAGRAM_USERNAME, { delay: 100 });
+    await page.type('input[name="password"]', INSTAGRAM_PASSWORD, { delay: 100 });
+  
+    await Promise.all([
+      page.click('button[type="submit"]'),
+      page.waitForNavigation({ waitUntil: 'networkidle2' })
+    ]);
+  
+    console.log('\n✅ Login realizado com sucesso!');
+    console.log('\n==============================');
     isLoggedIn = true;
-    return;
+  } catch (err) {
+    console.log('\n❌ Erro ao realizar login no Instagram. ', err);
   }
-
-  console.log('\n🔑 Realizando login no Instagram...');
-  await page.waitForSelector('input[name="username"]', { visible: true });
-  await page.type('input[name="username"]', INSTAGRAM_USERNAME, { delay: 100 });
-  await page.type('input[name="password"]', INSTAGRAM_PASSWORD, { delay: 100 });
-
-  await Promise.all([
-    page.click('button[type="submit"]'),
-    page.waitForNavigation({ waitUntil: 'networkidle2' })
-  ]);
-
-  console.log('\n✅ Login realizado com sucesso!');
-  console.log('\n==============================');
-  isLoggedIn = true;
 }
 
 async function checkNewPost() {
