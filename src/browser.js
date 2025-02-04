@@ -6,7 +6,7 @@ let page;
 async function initializeBrowser() {
   if (!browser || !page || page.isClosed()) {
     browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
       // executablePath: '/usr/bin/chromium-browser',
       args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu', '--disable-dev-shm-usage']
     });
