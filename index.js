@@ -9,7 +9,7 @@ app.use(express.json());
 
 // Consts
 const PORT = process.env.PORT || 3000;
-const INSTAGRAM_URL = `https://www.instagram.com/${process.env.INSTAGRAM_TARGET}/`;
+const INSTAGRAM_URL = `https://www.instagram.com/${process.env.INSTAGRAM_TARGET}`;
 const CHECK_INTERVAL = 30000;
 const CLASS_TAG_POST = process.env.INSTAGRAM_CLASS_POST;
 const CLASS_TAG_TEXT = process.env.INSTAGRAM_CLASS_TEXT;
