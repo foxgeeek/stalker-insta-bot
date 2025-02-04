@@ -68,7 +68,7 @@ jobs:
         NUM_INSTANCES: ${{ secrets.NUM_INSTANCES }}
 
     - name: Upload do screenshot
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: screenshot
         path: debug.png
