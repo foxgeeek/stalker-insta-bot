@@ -23,7 +23,7 @@ async function loginToInstagram() {
     }
   
     console.log('\n🔑 Realizando login no Instagram...');
-    // await page.waitForSelector('input[name="username"]', { visible: true });
+    await page.waitForSelector('input[name="username"]', { visible: true });
     await page.type('input[name="username"]', INSTAGRAM_USERNAME, { delay: 100 });
     await page.type('input[name="password"]', INSTAGRAM_PASSWORD, { delay: 100 });
   

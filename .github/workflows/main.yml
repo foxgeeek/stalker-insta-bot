@@ -28,7 +28,7 @@ jobs:
 
     - name: Run the bot
       run: |
-        nohup npm start &
+        npm start
       env:
         NODE_ENV: production
         # Adicione variáveis de ambiente sensíveis como secrets
