@@ -12,7 +12,7 @@ async function loginToInstagram() {
     if (isLoggedIn) return;
   
     console.log('\n🔎 Verificando login no Instagram...');
-    await page.goto('https://www.instagram.com/accounts/login/', { waitUntil: 'networkidle0' });
+    await page.goto('https://www.instagram.com/accounts/login/', { waitUntil: 'networkidle2' });
   
     const alreadyLoggedIn = await page.evaluate(() => document.querySelector('input[name="username"]') === null);
   
@@ -23,13 +23,13 @@ async function loginToInstagram() {
     }
   
     console.log('\n🔑 Realizando login no Instagram...');
-    await page.waitForSelector('input[name="username"]', { visible: true, timeout: 30000 });
+    await page.waitForSelector('input[name="username"]', { timeout: 30000, visible: true });
     await page.type('input[name="username"]', INSTAGRAM_USERNAME, { delay: 100 });
     await page.type('input[name="password"]', INSTAGRAM_PASSWORD, { delay: 100 });
   
     await Promise.all([
       page.click('button[type="submit"]'),
-      page.waitForNavigation({ waitUntil: 'networkidle0' })
+      page.waitForNavigation({ waitUntil: 'networkidle2' })
     ]);
   
     console.log('\n✅ Login realizado com sucesso!');
@@ -59,9 +59,9 @@ async function checkNewPost() {
     await loginToInstagram();
 
     console.log('\n🔍 Acessando:', INSTAGRAM_URL);
-    await page.goto(INSTAGRAM_URL, { waitUntil: 'networkidle0' });
+    await page.goto(INSTAGRAM_URL, { waitUntil: 'networkidle2' });
   
-    await page.waitForSelector(TARGET_CLASS, { timeout: 5000 });
+    await page.waitForSelector(TARGET_CLASS, { timeout: 30000, visible: true });
 
     const post = await page.evaluate((classSelector, tagSelector) => {
       let elements = Array.from(document.querySelectorAll(classSelector));
