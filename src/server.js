@@ -27,4 +27,8 @@ app.listen(PORT, async () => {
   console.log('\n==============================');
   await initializeBrowser();
   await checkNewPost();
+
+  //TODO: ver depois
+  console.log("\n✅ Finalizando processo...");
+  process.exit(0); // Finaliza o processo com código 0 (sucesso)
 });
