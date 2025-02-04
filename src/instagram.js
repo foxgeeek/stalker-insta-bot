@@ -34,6 +34,7 @@ async function loginToInstagram() {
   
     console.log('\n✅ Login realizado com sucesso!');
     console.log('\n==============================');
+    await page.screenshot({ path: 'debug.png', fullPage: true });
     isLoggedIn = true;
     page.on('console', msg => console.log('PAGE LOG:', msg.text()));
   } catch (err) {

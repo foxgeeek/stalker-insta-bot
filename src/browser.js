@@ -8,7 +8,7 @@ async function initializeBrowser() {
     browser = await puppeteer.launch({
       headless: true,
       executablePath: '/usr/bin/chromium-browser',
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu', '--disable-dev-shm-usage']
     });
     page = await browser.newPage();
     await page.setViewport({ width: 1280, height: 800 });
