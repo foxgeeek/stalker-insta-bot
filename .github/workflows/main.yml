@@ -13,6 +13,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Check Installed Browsers
+      run: |
+        which google-chrome
+        which chromium
+        which firefox
+        google-chrome --version || true
+        chromium --version || true
+        firefox --version || true
+
     - name: Checkout repository
       uses: actions/checkout@v2
 
