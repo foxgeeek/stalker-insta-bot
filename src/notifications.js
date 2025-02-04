@@ -11,13 +11,13 @@ async function sendNotification(post) {
   if (post && !post.image) {
     await axios.post(`${TELEGRAM_API}/sendMessage`, {
       chat_id: TELEGRAM_CHAT_ID,
-      text: `🚀 Novo post de ${INSTAGRAM_TARGET}: ${post.text}\n\n Segue o link: ${post.link}`
+      text: `🚀 Novo post de ${INSTAGRAM_TARGET}! \n\n${post.text}\n\n Segue o link: ${post.link}`
     });
   } else {
     await axios.post(`${TELEGRAM_API}/sendPhoto`, {
       chat_id: TELEGRAM_CHAT_ID,
       photo: post.image,
-      caption: `🚀 Novo post de ${INSTAGRAM_TARGET}: ${post.text}\n\n Segue o link: ${post.link}`
+      caption: `🚀 Novo post de ${INSTAGRAM_TARGET}! \n\n${post.text}\n\n Segue o link: ${post.link}`
     });
   }
 
