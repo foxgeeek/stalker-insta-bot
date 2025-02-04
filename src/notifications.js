@@ -1,9 +1,12 @@
 const axios = require('axios');
 const { TELEGRAM_CHAT_ID, TELEGRAM_TOKEN, INSTAGRAM_URL, INSTAGRAM_TARGET } = require('./config');
+const { getAIResponse } = require('./openai');
 const { getPage } = require('./browser');
 
 async function sendNotification(post) {
   const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_TOKEN}`;
+
+  post.text = await getAIResponse(post.text, `Responda de forma curta.`);
 
   if (post && !post.image) {
     await axios.post(`${TELEGRAM_API}/sendMessage`, {

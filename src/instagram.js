@@ -61,6 +61,8 @@ async function checkNewPost() {
       let elements = Array.from(document.querySelectorAll(classSelector));
 
       let elementSelected = elements.find((element, index) => {
+        if (!element.querySelector('svg')) return element;
+
         let svgElement = element.querySelector('svg');
         return svgElement && svgElement.ariaLabel && !svgElement.ariaLabel.includes('publicação fixada');
       });
